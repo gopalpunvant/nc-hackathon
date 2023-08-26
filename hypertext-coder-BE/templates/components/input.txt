@@ -1,0 +1,9 @@
+<div>
+    <label>
+        <<displayField>>:
+        <input
+        type="<<type>>"
+        name="<<valueField>>"
+        />
+    </label>
+</div>
