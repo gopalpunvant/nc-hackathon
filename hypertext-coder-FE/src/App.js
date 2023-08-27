@@ -4,6 +4,33 @@ import axios from 'axios';
 
 function App() {
 
+  const input = {
+    "xtype": "h1",
+    "value": "Student Details",
+    "childrens": [
+      {
+        "xtype": "text",
+        "displayField": "Name",
+        "valueField": "name"
+      },
+      {
+        "xtype": "text",
+        "displayField": "Class",
+        "valueField": "class"
+      },
+      {
+        "xtype": "text",
+        "displayField": "School Name",
+        "valueField": "schoolName"
+      },
+      {
+        "xtype": "text",
+        "displayField": "Address",
+        "valueField": "address"
+      }
+    ]
+  };
+
   const createProject = () => {
     axios.get('/createProject')
       .then(response => {
@@ -15,7 +42,7 @@ function App() {
   }
 
   const generateCode = () => {
-    axios.get('/generateCode')
+    axios.post('/generateCode', input)
       .then(response => {
         alert('Code is generateCode.');
       })

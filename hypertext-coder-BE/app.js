@@ -8,6 +8,8 @@ const destinationFolder = '../demo-app';
 const { exec } = require("child_process");
 const codeGenerator = require('./codeGenerator');
 
+app.use(express.json());
+
 app.get('/hello', (req, res) => {
   res.send('Hello World!')
 })
@@ -34,9 +36,9 @@ app.get('/createProject', (req, res) => {
   }
 })
 
-app.get('/generateCode', (req, res) => {
+app.post('/generateCode', (req, res) => {
   try {
-    const appJSContent = codeGenerator();
+    const appJSContent = codeGenerator(req.body);
     fs.writeFileSync(destinationFolder + '/src/App.js', appJSContent);
   } catch (error) {
     console.error("Error copying folder:", error);

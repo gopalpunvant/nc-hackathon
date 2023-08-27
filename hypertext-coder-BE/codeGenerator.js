@@ -1,38 +1,11 @@
 const fs = require('fs');
 const componentTemplatePath = './templates/components/';
 
-module.exports = function () {
+module.exports = function (input) {
 
   var a = ['a', 'b', 'c', 'd'];
   const formStartString = '<form>';
   const formEndString = '</form>';
-
-  var input = {
-    "xtype": "h1",
-    "value": "Student Details",
-    "childrens": [
-      {
-        "xtype": "text",
-        "displayField": "Name",
-        "valueField": "name"
-      },
-      {
-        "xtype": "text",
-        "displayField": "Class",
-        "valueField": "class"
-      },
-      {
-        "xtype": "text",
-        "displayField": "School Name",
-        "valueField": "schoolName"
-      },
-      {
-        "xtype": "text",
-        "displayField": "Address",
-        "valueField": "address"
-      }
-    ]
-  };
 
   const readTemplate = (templatePath) => {
     try {
@@ -67,6 +40,10 @@ module.exports = function () {
 
       case 'number':
         code += createInput(input.displayField, input.valueField, 'number') + '\n';
+        break;
+
+      case 'button':
+        code += createButton(inout.displayField) + '\n';
         break;
 
       default:
