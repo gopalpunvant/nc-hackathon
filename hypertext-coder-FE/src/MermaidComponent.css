@@ -1,0 +1,10 @@
+.editorClass {
+  width: 30%;
+  height: 400px;
+  overflow: scroll;
+}
+
+.generate {
+  position: absolute;
+  left: 32%;
+}

@@ -1,45 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import MermaidRender from './MermaidComponent'; // Assuming you have a MermaidRender component
-import { input } from './mermaid/designInput'; // Update the path to your design input
+import React, { useState, useEffect } from "react";
+import MermaidRender from "./MermaidComponent"; // Assuming you have a MermaidRender component
+import { design, input } from "./mermaid/designInput"; // Update the path to your design input
 import { JsonEditor as Editor } from "jsoneditor-react";
 import "jsoneditor-react/es/editor.min.css";
-import mermaid from 'mermaid';
-import axios from 'axios';
+import "./MermaidComponent.css";
+import { UxButton } from "@netcracker/ux-react";
+import axios from "axios";
 
 const MermaidComponent = () => {
   const [jsonData, setJsonData] = useState(input);
   const [mermaidJson, setMermaidJson] = useState();
 
   useEffect(() => {
-    const storedData = localStorage.getItem('dataSource');
+    const storedData = localStorage.getItem("dataSource");
     if (storedData) {
       setJsonData(JSON.stringify(JSON.parse(storedData), null, 2));
       setMermaidJson(generateMermaidDiagram(JSON.parse(storedData)));
     } else {
       setJsonData(input);
       setMermaidJson(generateMermaidDiagram(jsonData));
-
     }
   }, []);
 
   useEffect(() => {
     setMermaidJson(generateMermaidDiagram(jsonData));
   }, [jsonData, mermaidJson]);
-  
 
-  const loadData = () => {
-   
-  };
+  const loadData = () => {};
 
   const updateClassDiagram = () => {
     setMermaidJson(generateMermaidDiagram(jsonData));
     const jsonString = JSON.stringify(jsonData);
-    localStorage.setItem('dataSource', jsonString);
+    localStorage.setItem("dataSource", jsonString);
     window.location.reload();
   };
 
   const reset = () => {
-    localStorage.removeItem('dataSource');
+    localStorage.removeItem("dataSource");
     window.location.reload();
   };
 
@@ -54,14 +51,15 @@ const MermaidComponent = () => {
   };
 
   const generateCode = (jsonData) => {
-    axios.post('/generateCode', jsonData)
-      .then(response => {
-        alert('Code is generateCode.');
+    axios
+      .post("/generateCode", jsonData)
+      .then((response) => {
+        alert("Code is generateCode.");
       })
-      .catch(error => {
-        console.error('Error fetching data:', error);
+      .catch((error) => {
+        console.error("Error fetching data:", error);
       });
-  }
+  };
 
   const onMouseOut = () => {
     const tooltip = document.getElementById("tooltip");
@@ -69,9 +67,9 @@ const MermaidComponent = () => {
   };
 
   const generateMermaidDiagram = (jsonDataPara) => {
-    console.log("in generate",typeof jsonDataPara)
-    let mermaidText = 'classDiagram\n';
-    jsonDataPara = Object.assign([],jsonDataPara);
+    console.log("in generate", typeof jsonDataPara);
+    let mermaidText = "classDiagram\n";
+    jsonDataPara = Object.assign([], jsonDataPara);
     jsonDataPara.forEach((classInfo) => {
       mermaidText += `class ${classInfo.name}\n`;
       classInfo.properties.forEach(
@@ -90,30 +88,30 @@ const MermaidComponent = () => {
         }
       }
     });
-    console.log("mermaidText",mermaidText)
+    console.log("mermaidText", mermaidText);
     return mermaidText;
   };
 
   return (
     <div>
-       <Editor value={jsonData}  onChange={(e) => setJsonData(e.target.value)} />
-      <br />
-      <button onClick={updateClassDiagram}>Generate Class Diagram</button>
-      <button onClick={reset}>Reset to Default</button>
-      <div className="tooltip">
-        <button onClick={copyToClipboard} onMouseOut={onMouseOut}>
-          <span className="tooltiptext" id="tooltip">
-            Copy to clipboard
-          </span>
-          Copy text
-        </button>
+      <div className="editorClass">
+        {" "}
+        <Editor
+          value={jsonData}
+          onChange={(e) => setJsonData(e.target.value)}
+        />
       </div>
-      <button  onClick={() => generateCode(jsonData)}>Generate Code</button>
 
-      {/* <MermaidRender classJson={mermaidJson} /> */}
-      <pre className="mermaid" id="mermaidDiagram">
-                {mermaidJson}
-            </pre>
+      <br />
+      <div></div>
+
+      <UxButton
+        onClick={generateCode(jsonData)}
+        className="generate"
+        size="small"
+      >
+        Generate Code
+      </UxButton>
     </div>
   );
 };

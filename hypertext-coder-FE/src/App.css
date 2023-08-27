@@ -40,3 +40,30 @@
     transform: rotate(360deg);
   }
 }
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.editor {
+  width: 50%;
+}
+
+.diagram {
+  width: 50%;
+}
+
+.editorClass {
+  width: 200% !important;
+}
+
+.mermaid {
+  width: 50%;
+  position: relative;
+  left: 30%;
+}
+
+button {
+  margin: 10px;
+}
