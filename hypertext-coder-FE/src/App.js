@@ -62,9 +62,7 @@ function App() {
         Deploy Project
       </UxButton>
 
-      <UxButton onClick={generateCode} size="small">
-        Generate Design
-      </UxButton>
+      <UxButton size="small">Generate Design</UxButton>
     </div>
   );
 }

@@ -106,7 +106,7 @@ const MermaidComponent = () => {
       <div></div>
 
       <UxButton
-        onClick={generateCode(jsonData)}
+        onClick={() => generateCode(jsonData)}
         className="generate"
         size="small"
       >
