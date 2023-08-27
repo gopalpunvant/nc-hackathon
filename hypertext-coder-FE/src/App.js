@@ -48,7 +48,9 @@ function App() {
     <div className="App">
       <UxHeader text={" HyperText Coder"}>
         <Logo />
+        <UxHeader.Title block text="HyperText Coder" />
       </UxHeader>
+
       <div className="container">
         <MermaidComponent className="editor" />
         <ClassDiagramComponent className="diagram" />
