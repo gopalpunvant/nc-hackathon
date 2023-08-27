@@ -15,47 +15,10 @@ function App() {
   const [yourJson, setYourJson] = useState(input);
   mermaid.initialize({ startOnLoad: true });
 
-  const input1 = {
-    "xtype": "h1",
-    "value": "Student Details",
-    "childrens": [
-      {
-        "xtype": "text",
-        "displayField": "Name",
-        "valueField": "name"
-      },
-      {
-        "xtype": "text",
-        "displayField": "Class",
-        "valueField": "class"
-      },
-      {
-        "xtype": "text",
-        "displayField": "School Name",
-        "valueField": "schoolName"
-      },
-      {
-        "xtype": "text",
-        "displayField": "Address",
-        "valueField": "address"
-      }
-    ]
-  };
-
   const createProject = () => {
     axios.get('/createProject')
       .then(response => {
         alert('New Project is created.');
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }
-
-  const generateCode = () => {
-    axios.post('/generateCode', input1)
-      .then(response => {
-        alert('Code is generateCode.');
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -95,16 +58,11 @@ function App() {
         <button className="App-gen-btn" onClick={() => createProject()}>
           Create Project
         </button>
-        
-        <button className="App-gen-btn" onClick={() => generateCode()}>
-          Generate Code
-        </button>
 
         <button className="App-gen-btn" onClick={() => deployProject()}>
           Deploy Project
         </button>
 
-        <button className="App-gen-btn" onClick={updateClassDiagram}>Generate Design</button>
     </div>
   );
 }

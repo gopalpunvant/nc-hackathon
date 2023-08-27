@@ -28,6 +28,12 @@ module.exports = function (input) {
     return `<${headerType}>${value}</${headerType}>`
   }
 
+  const createButton = (displayField) => {
+    let inputTemplate = readTemplate(componentTemplatePath + 'button.txt');
+    inputTemplate = inputTemplate.replace('<<displayField>>', displayField);
+    return inputTemplate;
+  }
+
   const generateCode = (code, input) => {
     switch (input.xtype) {
       case 'h1':
@@ -43,7 +49,7 @@ module.exports = function (input) {
         break;
 
       case 'button':
-        code += createButton(inout.displayField) + '\n';
+        code += createButton(input.displayField) + '\n';
         break;
 
       default:

@@ -69,6 +69,10 @@ export const input = {
                 "xtype": "text",
                 "displayField": "Address",
                 "valueField": "address"
+            },
+            {
+                "xtype": "button",
+                "displayField": "Submit",
             }
         ]
     }

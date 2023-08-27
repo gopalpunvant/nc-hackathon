@@ -4,7 +4,7 @@ import { input } from './mermaid/designInput'; // Update the path to your design
 import { JsonEditor as Editor } from "jsoneditor-react";
 import "jsoneditor-react/es/editor.min.css";
 import mermaid from 'mermaid';
-
+import axios from 'axios';
 
 const MermaidComponent = () => {
   const [jsonData, setJsonData] = useState(input);
@@ -53,6 +53,16 @@ const MermaidComponent = () => {
     tooltip.innerHTML = "Copied";
   };
 
+  const generateCode = (jsonData) => {
+    axios.post('/generateCode', jsonData)
+      .then(response => {
+        alert('Code is generateCode.');
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }
+
   const onMouseOut = () => {
     const tooltip = document.getElementById("tooltip");
     tooltip.innerHTML = "Copy to clipboard";
@@ -98,6 +108,7 @@ const MermaidComponent = () => {
           Copy text
         </button>
       </div>
+      <button  onClick={() => generateCode(jsonData)}>Generate Code</button>
 
       {/* <MermaidRender classJson={mermaidJson} /> */}
       <pre className="mermaid" id="mermaidDiagram">
