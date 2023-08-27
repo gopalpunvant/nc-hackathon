@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import mermaid from 'mermaid';
 import { UxHeader } from '@netcracker/ux-react';
-import { design } from './mermaid/designInput'; // Update the path to your design input
+import { input } from './mermaid/designInput'; // Update the path to your design input
 import { JsonEditor as Editor } from "jsoneditor-react";
 import "jsoneditor-react/es/editor.min.css";
 import MermaidComponent from './MermaidComponent';
@@ -12,10 +12,10 @@ import MermaidComponent from './MermaidComponent';
 function App() {
 
   const { Logo } = UxHeader;
-  const [yourJson, setYourJson] = useState(design);
+  const [yourJson, setYourJson] = useState(input);
   mermaid.initialize({ startOnLoad: true });
 
-  const input = {
+  const input1 = {
     "xtype": "h1",
     "value": "Student Details",
     "childrens": [
@@ -53,7 +53,7 @@ function App() {
   }
 
   const generateCode = () => {
-    axios.post('/generateCode', input)
+    axios.post('/generateCode', input1)
       .then(response => {
         alert('Code is generateCode.');
       })
@@ -91,6 +91,7 @@ function App() {
       </div> */}
 
       <MermaidComponent/>
+     
         <button className="App-gen-btn" onClick={() => createProject()}>
           Create Project
         </button>

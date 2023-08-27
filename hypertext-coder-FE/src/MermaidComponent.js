@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import MermaidRender from './MermaidComponent'; // Assuming you have a MermaidRender component
-import { design } from './mermaid/designInput'; // Update the path to your design input
+import { input } from './mermaid/designInput'; // Update the path to your design input
 import { JsonEditor as Editor } from "jsoneditor-react";
 import "jsoneditor-react/es/editor.min.css";
+import mermaid from 'mermaid';
 
 
 const MermaidComponent = () => {
-  const [jsonData, setJsonData] = useState(design);
+  const [jsonData, setJsonData] = useState(input);
   const [mermaidJson, setMermaidJson] = useState();
 
   useEffect(() => {
@@ -15,7 +16,7 @@ const MermaidComponent = () => {
       setJsonData(JSON.stringify(JSON.parse(storedData), null, 2));
       setMermaidJson(generateMermaidDiagram(JSON.parse(storedData)));
     } else {
-      setJsonData(design);
+      setJsonData(input);
       setMermaidJson(generateMermaidDiagram(jsonData));
 
     }
@@ -99,6 +100,9 @@ const MermaidComponent = () => {
       </div>
 
       {/* <MermaidRender classJson={mermaidJson} /> */}
+      <pre className="mermaid" id="mermaidDiagram">
+                {mermaidJson}
+            </pre>
     </div>
   );
 };

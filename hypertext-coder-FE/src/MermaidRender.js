@@ -7,22 +7,22 @@ const MermaidRenderComponent = ({ classJson }) => {
         mermaid.initialize({ startOnLoad: true });
     }, []);
 
-    const exportDiagram = () => {
-        const mermaidDiagram = document.getElementById('mermaidDiagram');
-        if (mermaidDiagram) {
-            html2canvas(mermaidDiagram).then((canvas) => {
-                const image = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.href = image;
-                link.download = 'mermaid-diagram.png';
-                link.click();
-            });
-        }
-    };
+    // const exportDiagram = () => {
+    //     const mermaidDiagram = document.getElementById('mermaidDiagram');
+    //     if (mermaidDiagram) {
+    //         html2canvas(mermaidDiagram).then((canvas) => {
+    //             const image = canvas.toDataURL('image/png');
+    //             const link = document.createElement('a');
+    //             link.href = image;
+    //             link.download = 'mermaid-diagram.png';
+    //             link.click();
+    //         });
+    //     }
+    // };
 
     return (
         <div>
-            <button onClick={exportDiagram}>Export Diagram as PNG</button>
+            {/* <button onClick={exportDiagram}>Export Diagram as PNG</button> */}
             <pre className="mermaid" id="mermaidDiagram">
                 {classJson}
             </pre>
