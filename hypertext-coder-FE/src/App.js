@@ -1,8 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
+import { useState } from 'react';
+import mermaid from 'mermaid';
+import { UxHeader } from '@netcracker/ux-react';
+import { design } from './mermaid/designInput'; // Update the path to your design input
+import { JsonEditor as Editor } from "jsoneditor-react";
+import "jsoneditor-react/es/editor.min.css";
+import MermaidComponent from './MermaidComponent';
 
 function App() {
+
+  const { Logo } = UxHeader;
+  const [yourJson, setYourJson] = useState(design);
+  mermaid.initialize({ startOnLoad: true });
 
   const input = {
     "xtype": "h1",
@@ -61,13 +72,25 @@ function App() {
       });
   }
 
+  const updateClassDiagram = () => {
+    // this.mermaidJson = this.generateMermaidDiagram(JSON.parse(this.jsonData));
+    localStorage.setItem('dataSource', yourJson);
+    // window.location.reload();
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          HyperText Coder
-        </p>
+        <UxHeader text={' HyperText Coder'}>
+        <Logo />
+      </UxHeader>
+      {/* <div className="container">
+      <div className="App">
+            <Editor value={yourJson} />
+      </div>
+        <ClassDiagramComponent />
+      </div> */}
+
+      <MermaidComponent/>
         <button className="App-gen-btn" onClick={() => createProject()}>
           Create Project
         </button>
@@ -79,7 +102,8 @@ function App() {
         <button className="App-gen-btn" onClick={() => deployProject()}>
           Deploy Project
         </button>
-      </header>
+
+        <button className="App-gen-btn" onClick={updateClassDiagram}>Generate Design</button>
     </div>
   );
 }
